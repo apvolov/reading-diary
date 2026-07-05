@@ -19,6 +19,11 @@ public class HttpUtil {
         return parseUrlEncoded(body);
     }
 
+    public static Map<String, String> parseQueryParams(HttpExchange exchange) {
+        String query = exchange.getRequestURI().getQuery();
+        return parseUrlEncoded(query != null ? query : "");
+    }
+
     public static Map<String, String> parseCookies(HttpExchange exchange) {
         Map<String, String> cookies = new HashMap<>();
         List<String> headers = exchange.getRequestHeaders().get("Cookie");

@@ -1,5 +1,6 @@
 package com.readingdiary.handler;
 
+import com.readingdiary.dao.UserBookDao;
 import com.readingdiary.dao.UserDao;
 import com.readingdiary.model.User;
 import com.readingdiary.util.HttpUtil;
@@ -9,12 +10,14 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
 public class HomeHandler implements HttpHandler {
 
     private final UserDao userDao = new UserDao();
+    private final UserBookDao userBookDao = new UserBookDao();
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
@@ -33,7 +36,9 @@ public class HomeHandler implements HttpHandler {
                 return;
             }
 
-            Map<String, Object> model = Map.of("username", userOpt.get().getUsername());
+            Map<String, Object> model = new HashMap<>();
+            model.put("username", userOpt.get().getUsername());
+            model.put("entries", userBookDao.findAllByUserId(userId));
             HttpUtil.sendHtml(exchange, 200, TemplateEngine.render("home.ftl", model));
         } catch (Exception e) {
             e.printStackTrace();

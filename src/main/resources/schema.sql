@@ -12,29 +12,20 @@ CREATE TABLE users (
     created_at    TIMESTAMP    NOT NULL DEFAULT now()
 );
 
--- Общий справочник книг
-CREATE TABLE books (
-    id          BIGSERIAL PRIMARY KEY,
-    title       VARCHAR(255) NOT NULL,
-    author      VARCHAR(255) NOT NULL,
-    year        INT,
-    description TEXT
-);
-
--- Дневник пользователя
 CREATE TABLE user_books (
     id             BIGSERIAL PRIMARY KEY,
-    user_id        BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    book_id        BIGINT NOT NULL REFERENCES books(id) ON DELETE CASCADE,
-    status         VARCHAR(20) NOT NULL DEFAULT 'PLANNED'
+    user_id        BIGINT       NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    title          VARCHAR(255) NOT NULL,
+    author         VARCHAR(255) NOT NULL,
+    year           INT,
+    description    TEXT,
+    status         VARCHAR(20)  NOT NULL DEFAULT 'PLANNED'
                        CHECK (status IN ('PLANNED', 'READING', 'READ')),
     rating         INT CHECK (rating BETWEEN 1 AND 10),
     review         TEXT,
-    date_added     TIMESTAMP NOT NULL DEFAULT now(),
-    date_finished  DATE,
-    UNIQUE (user_id, book_id)
+    date_added     TIMESTAMP    NOT NULL DEFAULT now(),
+    date_finished  DATE
 );
-
 
 CREATE TABLE shelves (
     id      BIGSERIAL PRIMARY KEY,
@@ -42,7 +33,6 @@ CREATE TABLE shelves (
     name    VARCHAR(100) NOT NULL,
     UNIQUE (user_id, name)
 );
-
 
 CREATE TABLE shelf_books (
     shelf_id      BIGINT NOT NULL REFERENCES shelves(id) ON DELETE CASCADE,
