@@ -4,6 +4,7 @@ import com.readingdiary.handler.HomeHandler;
 import com.readingdiary.handler.LoginHandler;
 import com.readingdiary.handler.LogoutHandler;
 import com.readingdiary.handler.RegisterHandler;
+import com.readingdiary.handler.StaticFileHandler;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
@@ -16,6 +17,7 @@ public class Main {
         int port = 8080;
         HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
 
+        server.createContext("/static", new StaticFileHandler());
         server.createContext("/", new HomeHandler());
         server.createContext("/register", new RegisterHandler());
         server.createContext("/login", new LoginHandler());

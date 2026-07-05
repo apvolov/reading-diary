@@ -2,14 +2,15 @@ package com.readingdiary.handler;
 
 import com.readingdiary.dao.UserDao;
 import com.readingdiary.model.User;
-import com.readingdiary.util.HtmlTemplates;
 import com.readingdiary.util.HttpUtil;
 import com.readingdiary.util.PasswordUtil;
 import com.readingdiary.util.SessionManager;
+import com.readingdiary.util.TemplateEngine;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -22,7 +23,7 @@ public class LoginHandler implements HttpHandler {
         String method = exchange.getRequestMethod();
 
         if (method.equals("GET")) {
-            HttpUtil.sendHtml(exchange, 200, HtmlTemplates.loginForm(null));
+            HttpUtil.sendHtml(exchange, 200, TemplateEngine.render("login.ftl", Map.of()));
             return;
         }
 
@@ -44,7 +45,9 @@ public class LoginHandler implements HttpHandler {
             Optional<User> userOpt = userDao.findByUsername(username);
 
             if (userOpt.isEmpty() || !PasswordUtil.matches(password, userOpt.get().getPasswordHash())) {
-                HttpUtil.sendHtml(exchange, 401, HtmlTemplates.loginForm("Неверное имя пользователя или пароль"));
+                Map<String, Object> model = new HashMap<>();
+                model.put("error", "Неверное имя пользователя или пароль");
+                HttpUtil.sendHtml(exchange, 401, TemplateEngine.render("login.ftl", model));
                 return;
             }
 
@@ -54,7 +57,9 @@ public class LoginHandler implements HttpHandler {
             HttpUtil.redirect(exchange, "/");
         } catch (Exception e) {
             e.printStackTrace();
-            HttpUtil.sendHtml(exchange, 500, HtmlTemplates.loginForm("Ошибка сервера, попробуйте позже"));
+            Map<String, Object> model = new HashMap<>();
+            model.put("error", "Ошибка сервера, попробуйте позже");
+            HttpUtil.sendHtml(exchange, 500, TemplateEngine.render("login.ftl", model));
         }
     }
 }

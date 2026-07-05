@@ -2,13 +2,14 @@ package com.readingdiary.handler;
 
 import com.readingdiary.dao.UserDao;
 import com.readingdiary.model.User;
-import com.readingdiary.util.HtmlTemplates;
 import com.readingdiary.util.HttpUtil;
 import com.readingdiary.util.PasswordUtil;
+import com.readingdiary.util.TemplateEngine;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterHandler implements HttpHandler {
@@ -20,7 +21,7 @@ public class RegisterHandler implements HttpHandler {
         String method = exchange.getRequestMethod();
 
         if (method.equals("GET")) {
-            HttpUtil.sendHtml(exchange, 200, HtmlTemplates.registerForm(null));
+            HttpUtil.sendHtml(exchange, 200, TemplateEngine.render("register.ftl", Map.of()));
             return;
         }
 
@@ -40,13 +41,17 @@ public class RegisterHandler implements HttpHandler {
         String password = form.get("password");
 
         if (username == null || username.isBlank() || email == null || password == null || password.isBlank()) {
-            HttpUtil.sendHtml(exchange, 400, HtmlTemplates.registerForm("Заполните все поля"));
+            Map<String, Object> model = new HashMap<>();
+            model.put("error", "Заполните все поля");
+            HttpUtil.sendHtml(exchange, 400, TemplateEngine.render("register.ftl", model));
             return;
         }
 
         try {
             if (userDao.existsByUsernameOrEmail(username, email)) {
-                HttpUtil.sendHtml(exchange, 409, HtmlTemplates.registerForm("Такой пользователь уже существует"));
+                Map<String, Object> model = new HashMap<>();
+                model.put("error", "Такой пользователь уже существует");
+                HttpUtil.sendHtml(exchange, 409, TemplateEngine.render("register.ftl", model));
                 return;
             }
 
@@ -59,7 +64,9 @@ public class RegisterHandler implements HttpHandler {
             HttpUtil.redirect(exchange, "/login");
         } catch (Exception e) {
             e.printStackTrace();
-            HttpUtil.sendHtml(exchange, 500, HtmlTemplates.registerForm("Ошибка сервера, попробуйте позже"));
+            Map<String, Object> model = new HashMap<>();
+            model.put("error", "Ошибка сервера, попробуйте позже");
+            HttpUtil.sendHtml(exchange, 500, TemplateEngine.render("register.ftl", model));
         }
     }
 }

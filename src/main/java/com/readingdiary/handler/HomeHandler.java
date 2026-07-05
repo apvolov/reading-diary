@@ -2,9 +2,9 @@ package com.readingdiary.handler;
 
 import com.readingdiary.dao.UserDao;
 import com.readingdiary.model.User;
-import com.readingdiary.util.HtmlTemplates;
 import com.readingdiary.util.HttpUtil;
 import com.readingdiary.util.SessionManager;
+import com.readingdiary.util.TemplateEngine;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
@@ -33,15 +33,8 @@ public class HomeHandler implements HttpHandler {
                 return;
             }
 
-            String html = HtmlTemplates.page("Личный кабинет", """
-                    <h1>Привет, %s!</h1>
-                    <p>Пустой читательский дневник.</p>
-                    <form method="POST" action="/logout">
-                        <button type="submit">Выйти</button>
-                    </form>
-                    """.formatted(userOpt.get().getUsername()));
-
-            HttpUtil.sendHtml(exchange, 200, html);
+            Map<String, Object> model = Map.of("username", userOpt.get().getUsername());
+            HttpUtil.sendHtml(exchange, 200, TemplateEngine.render("home.ftl", model));
         } catch (Exception e) {
             e.printStackTrace();
             exchange.sendResponseHeaders(500, -1);
