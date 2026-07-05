@@ -35,7 +35,7 @@ public class HomeHandler implements HttpHandler {
 
             String html = HtmlTemplates.page("Личный кабинет", """
                     <h1>Привет, %s!</h1>
-                    <p>Твой читательский дневник пока пуст — добавим книги на следующем шаге.</p>
+                    <p>Пустой читательский дневник.</p>
                     <form method="POST" action="/logout">
                         <button type="submit">Выйти</button>
                     </form>

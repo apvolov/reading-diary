@@ -5,16 +5,6 @@ import java.util.Base64;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * Хранит соответствие "session id -> id пользователя" в памяти процесса.
- *
- * Важные ограничения такого подхода (это будет решено на следующих этапах):
- * - сессии живут, пока живёт процесс — рестарт сервера разлогинивает всех;
- * - не работает при нескольких инстансах приложения (нет общего хранилища);
- * - на Spring это заменяется на HttpSession (сервлет-контейнер сам
- *   управляет жизненным циклом) либо на внешнее хранилище (Redis) для
- *   горизонтального масштабирования.
- */
 public class SessionManager {
 
     private static final SecureRandom RANDOM = new SecureRandom();

@@ -15,8 +15,6 @@ public class UserDao {
     public User create(User user) throws SQLException {
         String sql = "INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)";
         try (Connection conn = Database.getConnection();
-             // RETURN_GENERATED_KEYS нужен, чтобы после INSERT получить
-             // id, сгенерированный BIGSERIAL-ом на стороне Postgres
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             stmt.setString(1, user.getUsername());
