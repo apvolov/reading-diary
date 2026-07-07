@@ -45,7 +45,7 @@ public class UserBookDao {
     public List<UserBook> findAllByUserId(long userId) throws SQLException {
         String sql = """
                 SELECT id, user_id, title, author, year, description,
-                       status, rating, review, date_added, date_finished
+                       status, rating, review, date_added, date_finished, cover_filename
                 FROM user_books
                 WHERE user_id = ?
                 ORDER BY date_added DESC
@@ -67,7 +67,7 @@ public class UserBookDao {
     public Optional<UserBook> findById(long id, long userId) throws SQLException {
         String sql = """
                 SELECT id, user_id, title, author, year, description,
-                       status, rating, review, date_added, date_finished
+                       status, rating, review, date_added, date_finished, cover_filename
                 FROM user_books
                 WHERE id = ? AND user_id = ?
                 """;
@@ -115,6 +115,18 @@ public class UserBookDao {
         }
     }
 
+    public void updateCover(long id, long userId, String filename) throws SQLException {
+        String sql = "UPDATE user_books SET cover_filename = ? WHERE id = ? AND user_id = ?";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, filename);
+            stmt.setLong(2, id);
+            stmt.setLong(3, userId);
+            stmt.executeUpdate();
+        }
+    }
+
     private UserBook mapRow(ResultSet rs) throws SQLException {
         UserBook entry = new UserBook();
         entry.setId(rs.getLong("id"));
@@ -132,6 +144,7 @@ public class UserBookDao {
         if (finished != null) {
             entry.setDateFinished(finished.toLocalDate());
         }
+        entry.setCoverFilename(rs.getString("cover_filename"));
         return entry;
     }
 }

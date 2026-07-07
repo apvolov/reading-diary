@@ -15,6 +15,7 @@ public class UserBook {
     private String review;
     private LocalDateTime dateAdded;
     private LocalDate dateFinished;
+    private String coverFilename;
 
     public UserBook() {
     }
@@ -51,4 +52,7 @@ public class UserBook {
 
     public LocalDate getDateFinished() { return dateFinished; }
     public void setDateFinished(LocalDate dateFinished) { this.dateFinished = dateFinished; }
+
+    public String getCoverFilename() { return coverFilename; }
+    public void setCoverFilename(String coverFilename) { this.coverFilename = coverFilename; }
 }

@@ -1,12 +1,28 @@
 <#import "layout.ftl" as layout>
 <@layout.page title="Редактировать запись">
 
-<h1>${entry.title}</h1>
-<p class="book-author-sub">${entry.author}<#if entry.year??> · ${entry.year}</#if></p>
+<div class="edit-header">
+    <#if entry.coverFilename??>
+    <img src="/covers/${entry.coverFilename}" alt="Обложка" class="cover-preview">
+    </#if>
+    <div>
+        <h1>${entry.title}</h1>
+        <p class="book-author-sub">${entry.author}<#if entry.year??> · ${entry.year}</#if></p>
+    </div>
+</div>
 
 <#if error??>
 <p class="error">${error}</p>
 </#if>
+
+<form method="POST" action="/covers/upload" enctype="multipart/form-data" class="cover-upload-form">
+    <input type="hidden" name="id" value="${entry.id}">
+    <label>Обложка</label>
+    <div class="file-row">
+        <input type="file" name="cover" accept="image/jpeg,image/png,image/gif,image/webp">
+        <button type="submit" class="btn-small">Загрузить</button>
+    </div>
+</form>
 
 <form method="POST" action="/diary/edit">
     <input type="hidden" name="id" value="${entry.id}">

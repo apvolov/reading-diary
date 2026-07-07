@@ -24,7 +24,8 @@ CREATE TABLE user_books (
     rating         INT CHECK (rating BETWEEN 1 AND 10),
     review         TEXT,
     date_added     TIMESTAMP    NOT NULL DEFAULT now(),
-    date_finished  DATE
+    date_finished  DATE,
+    cover_filename VARCHAR(255)
 );
 
 CREATE TABLE shelves (

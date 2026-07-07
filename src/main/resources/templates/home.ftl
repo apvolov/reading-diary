@@ -14,6 +14,9 @@
 <#if entries?has_content>
     <#list entries as entry>
     <div class="book-card">
+        <#if entry.coverFilename??>
+        <img src="/covers/${entry.coverFilename}" alt="Обложка" class="book-cover">
+        </#if>
         <div class="book-info">
             <span class="book-title">${entry.title}</span>
             <span class="book-author">${entry.author}<#if entry.year??> · ${entry.year}</#if></span>

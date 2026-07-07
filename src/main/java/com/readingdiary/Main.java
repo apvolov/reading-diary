@@ -1,6 +1,7 @@
 package com.readingdiary;
 
 import com.readingdiary.handler.AddBookHandler;
+import com.readingdiary.handler.CoverHandler;
 import com.readingdiary.handler.EditEntryHandler;
 import com.readingdiary.handler.HomeHandler;
 import com.readingdiary.handler.LoginHandler;
@@ -8,6 +9,7 @@ import com.readingdiary.handler.LogoutHandler;
 import com.readingdiary.handler.RegisterHandler;
 import com.readingdiary.handler.StaticFileHandler;
 import com.readingdiary.handler.UpdateStatusHandler;
+import com.readingdiary.handler.UploadCoverHandler;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
@@ -21,6 +23,8 @@ public class Main {
         HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
 
         server.createContext("/static", new StaticFileHandler());
+        server.createContext("/covers/upload", new UploadCoverHandler());
+        server.createContext("/covers", new CoverHandler());
         server.createContext("/books/add", new AddBookHandler());
         server.createContext("/diary/status", new UpdateStatusHandler());
         server.createContext("/diary/edit", new EditEntryHandler());
