@@ -1,46 +1,44 @@
 <#import "layout.ftl" as layout>
-<@layout.page title="Мой дневник">
+<@layout.page title="Мой дневник" fullWidth=true>
 
-<div class="page-header">
-    <h1>Мой дневник</h1>
-    <div class="header-actions">
-        <a href="/books/add" class="btn-primary">+ Добавить книгу</a>
-        <form method="POST" action="/logout" style="display:inline;">
-            <button type="submit" class="btn-ghost">Выйти</button>
-        </form>
-    </div>
-</div>
+<div class="app-shell">
+    <@layout.sidebar />
+    <main class="main-content">
+        <#if entries?has_content>
+        <div class="book-grid">
+            <#list entries as entry>
+            <div class="book-card">
+                <div class="book-cover-wrap">
+                    <span class="status-badge
+                        <#if entry.status?string == "READ">status-read
+                        <#elseif entry.status?string == "READING">status-reading
+                        <#else>status-planned
+                        </#if>">
+                        <#if entry.status?string == "READ">Прочитано
+                        <#elseif entry.status?string == "READING">В процессе
+                        <#else>Не приступал
+                        </#if>
+                    </span>
+                    <#if entry.coverFilename??>
+                    <img src="/covers/${entry.coverFilename}" alt="Обложка" class="book-cover">
+                    <#else>
+                    <div class="book-cover book-cover-placeholder">cover not found</div>
+                    </#if>
+                </div>
 
-<#if entries?has_content>
-    <#list entries as entry>
-    <div class="book-card">
-        <#if entry.coverFilename??>
-        <img src="/covers/${entry.coverFilename}" alt="Обложка" class="book-cover">
+                <span class="book-title">${entry.title}</span>
+
+                <div class="book-footer">
+                    <span class="book-author">${entry.author}</span>
+                    <a href="/diary/edit?id=${entry.id}" class="btn-small">Редактировать</a>
+                </div>
+            </div>
+            </#list>
+        </div>
+        <#else>
+            <p class="empty-state">Дневник пуст. <a href="/books/add">Добавьте первую книгу</a>.</p>
         </#if>
-        <div class="book-info">
-            <span class="book-title">${entry.title}</span>
-            <span class="book-author">${entry.author}<#if entry.year??> · ${entry.year}</#if></span>
-            <#if entry.rating??>
-            <span class="book-rating">${entry.rating} / 10</span>
-            </#if>
-        </div>
-
-        <div class="book-actions">
-            <form method="POST" action="/diary/status" class="status-form">
-                <input type="hidden" name="id" value="${entry.id}">
-                <select name="status" class="status-select">
-                    <option value="PLANNED"  <#if entry.status?string == "PLANNED">selected</#if>>Планирую</option>
-                    <option value="READING"  <#if entry.status?string == "READING">selected</#if>>Читаю</option>
-                    <option value="READ"     <#if entry.status?string == "READ">selected</#if>>Прочитал</option>
-                </select>
-                <button type="submit" class="btn-small">Сохранить</button>
-            </form>
-            <a href="/diary/edit?id=${entry.id}" class="btn-link">Редактировать</a>
-        </div>
-    </div>
-    </#list>
-<#else>
-    <p class="empty-state">Дневник пуст. <a href="/books/add">Добавьте первую книгу</a>.</p>
-</#if>
+    </main>
+</div>
 
 </@layout.page>
