@@ -4,10 +4,12 @@
 <div class="app-shell">
     <@layout.sidebar />
 
-    <main class="main-content <#if entry.coverFilename??>main-content-wide<#else>main-content-narrow</#if>">
-        <div class="edit-layout<#if entry.coverFilename??> edit-layout-with-cover</#if>">
+    <main class="main-content main-content-wide">
+        <div class="edit-layout edit-layout-with-cover">
             <#if entry.coverFilename??>
             <img src="/covers/${entry.coverFilename}" alt="Обложка" class="cover-large">
+            <#else>
+            <div class="cover-large cover-large-placeholder">обложка не загружена</div>
             </#if>
 
             <div class="edit-content">

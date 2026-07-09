@@ -441,9 +441,22 @@ input[type="date"]:focus {
 
 .cover-large {
     width: 280px;
+    height: 400px;
     flex-shrink: 0;
     border-radius: 6px;
     object-fit: cover;
+}
+
+.cover-large-placeholder {
+    background: #8f8f8f;
+    color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 0.9rem;
+    padding: 8px;
 }
 
 .edit-content {
