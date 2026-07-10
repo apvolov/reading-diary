@@ -26,8 +26,8 @@
     </div>
 
     <nav class="sidebar-nav">
-        <a href="/" class="sidebar-link">Все книги</a>
-        <span class="sidebar-link">Полки</span>
+        <a href="/" class="sidebar-link"><img src="/static/img/all_books.png" alt="" class="sidebar-link-icon">Все книги</a>
+        <span class="sidebar-link"><img src="/static/img/shelves.png" alt="" class="sidebar-link-icon">Полки</span>
     </nav>
 
     <div class="sidebar-spacer"></div>
@@ -40,7 +40,7 @@
     <div class="sidebar-spacer"></div>
 
     <form method="POST" action="/logout" class="sidebar-logout-form">
-        <button type="submit" class="sidebar-link sidebar-logout-btn">Выйти</button>
+        <button type="submit" class="sidebar-link sidebar-logout-btn"><img src="/static/img/logout.png" alt="" class="sidebar-link-icon">Выйти</button>
     </form>
 </aside>
 </#macro>

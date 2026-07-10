@@ -190,7 +190,9 @@ button:hover {
 }
 
 .sidebar-link {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
     font-family: sans-serif;
     font-weight: normal;
     font-size: 1rem;
@@ -203,6 +205,12 @@ button:hover {
     cursor: pointer;
 }
 
+.sidebar-link-icon {
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+}
+
 a.sidebar-link:hover {
     text-decoration: underline;
 }
@@ -212,6 +220,7 @@ span.sidebar-link {
 }
 
 .sidebar-logout-btn {
+    font-weight: bold;
     color: #8a2e2e;
 }
 
