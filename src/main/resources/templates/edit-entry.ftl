@@ -36,8 +36,12 @@
                     <input type="file" name="cover" accept="image/jpeg,image/png,image/gif,image/webp">
 
                     <label>Оценка (1–10)</label>
-                    <input type="number" name="rating" min="1" max="10"
-                           value="${entry.rating!}" placeholder="Оставьте пустым, если не хотите">
+                    <select name="rating" class="status-select">
+                        <option value="" <#if !entry.rating??>selected</#if>>Без оценки</option>
+                        <#list 1..10 as i>
+                        <option value="${i}" <#if entry.rating?? && entry.rating == i>selected</#if>>${i}</option>
+                        </#list>
+                    </select>
 
                     <label>Дата окончания</label>
                     <input type="date" name="date_finished"
