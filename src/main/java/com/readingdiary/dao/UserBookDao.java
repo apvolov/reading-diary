@@ -127,6 +127,17 @@ public class UserBookDao {
         }
     }
 
+    public void deleteById(long id, long userId) throws SQLException {
+        String sql = "DELETE FROM user_books WHERE id = ? AND user_id = ?";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setLong(1, id);
+            stmt.setLong(2, userId);
+            stmt.executeUpdate();
+        }
+    }
+
     private UserBook mapRow(ResultSet rs) throws SQLException {
         UserBook entry = new UserBook();
         entry.setId(rs.getLong("id"));

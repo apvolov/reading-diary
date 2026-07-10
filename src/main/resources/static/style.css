@@ -244,6 +244,8 @@ span.sidebar-link {
 
 .btn-small {
     display: inline-block;
+    width: 160px;
+    box-sizing: border-box;
     padding: 5px 10px;
     background-color: #7a5c3a;
     color: #fff;
@@ -252,6 +254,7 @@ span.sidebar-link {
     font-family: sans-serif;
     font-size: 1rem;
     text-decoration: none;
+    text-align: center;
     cursor: pointer;
     align-self: auto;
     transition: background-color 0.15s;
@@ -263,8 +266,31 @@ span.sidebar-link {
     text-decoration: none;
 }
 
-.btn-save-centered {
-    align-self: center;
+.hidden-form {
+    display: none;
+}
+
+.edit-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.btn-save,
+.btn-delete {
+    width: 160px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.btn-delete {
+    background-color: #8a2e2e;
+}
+
+.btn-delete:hover {
+    background-color: #6e2424;
 }
 
 /* Book card */

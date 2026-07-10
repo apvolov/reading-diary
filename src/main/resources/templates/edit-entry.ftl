@@ -22,7 +22,7 @@
                 <p class="error">${error}</p>
                 </#if>
 
-                <form method="POST" action="/diary/edit" enctype="multipart/form-data">
+                <form id="edit-form" method="POST" action="/diary/edit" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="${entry.id}">
 
                     <label>Статус</label>
@@ -45,9 +45,17 @@
 
                     <label>Отзыв</label>
                     <textarea name="review" rows="6" placeholder="Ваши впечатления о книге...">${entry.review!}</textarea>
-
-                    <button type="submit" class="btn-save-centered">Сохранить</button>
                 </form>
+
+                <form id="delete-form" method="POST" action="/diary/delete" enctype="multipart/form-data"
+                      onsubmit="return confirm('Удалить эту запись безвозвратно?');" class="hidden-form">
+                    <input type="hidden" name="id" value="${entry.id}">
+                </form>
+
+                <div class="edit-actions">
+                    <button type="submit" form="edit-form" class="btn-save">Сохранить</button>
+                    <button type="submit" form="delete-form" class="btn-delete">Удалить</button>
+                </div>
             </div>
         </div>
     </main>

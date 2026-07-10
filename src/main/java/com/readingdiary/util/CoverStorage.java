@@ -37,6 +37,12 @@ public class CoverStorage {
         return filename;
     }
 
+    public static void delete(long userBookId) throws IOException {
+        for (String ext : ALLOWED_EXTENSIONS) {
+            Files.deleteIfExists(COVERS_DIR.resolve(userBookId + "." + ext));
+        }
+    }
+
     public static Optional<Path> get(String filename) {
         if (filename == null || filename.contains("/") || filename.contains("\\") || filename.contains("..")) {
             return Optional.empty();
