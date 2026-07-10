@@ -27,14 +27,14 @@
 
     <nav class="sidebar-nav">
         <a href="/" class="sidebar-link"><img src="/static/img/all_books.png" alt="" class="sidebar-link-icon">Все книги</a>
-        <span class="sidebar-link"><img src="/static/img/shelves.png" alt="" class="sidebar-link-icon">Полки</span>
+        <a href="/shelves" class="sidebar-link"><img src="/static/img/shelves.png" alt="" class="sidebar-link-icon">Полки</a>
     </nav>
 
     <div class="sidebar-spacer"></div>
 
     <div class="sidebar-nav">
         <a href="/books/add" class="sidebar-link">Добавить книгу</a>
-        <span class="sidebar-link">Добавить полку</span>
+        <a href="/shelves/add" class="sidebar-link">Добавить полку</a>
     </div>
 
     <div class="sidebar-spacer"></div>

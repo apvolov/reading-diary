@@ -1,6 +1,7 @@
 package com.readingdiary;
 
 import com.readingdiary.handler.AddBookHandler;
+import com.readingdiary.handler.AddShelfHandler;
 import com.readingdiary.handler.CoverHandler;
 import com.readingdiary.handler.DeleteEntryHandler;
 import com.readingdiary.handler.EditEntryHandler;
@@ -8,6 +9,7 @@ import com.readingdiary.handler.HomeHandler;
 import com.readingdiary.handler.LoginHandler;
 import com.readingdiary.handler.LogoutHandler;
 import com.readingdiary.handler.RegisterHandler;
+import com.readingdiary.handler.ShelvesHandler;
 import com.readingdiary.handler.StaticFileHandler;
 import com.sun.net.httpserver.HttpServer;
 
@@ -24,6 +26,8 @@ public class Main {
         server.createContext("/static", new StaticFileHandler());
         server.createContext("/covers", new CoverHandler());
         server.createContext("/books/add", new AddBookHandler());
+        server.createContext("/shelves/add", new AddShelfHandler());
+        server.createContext("/shelves", new ShelvesHandler());
         server.createContext("/diary/edit", new EditEntryHandler());
         server.createContext("/diary/delete", new DeleteEntryHandler());
         server.createContext("/", new HomeHandler());

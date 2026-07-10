@@ -26,7 +26,7 @@ h1 {
     font-weight: normal;
     margin-bottom: 24px;
     color: #1a1a1a;
-    border-bottom: 1px solid #c8b89a;
+    border-bottom: 2px solid #7a5c3a;
     padding-bottom: 12px;
 }
 
@@ -215,10 +215,6 @@ a.sidebar-link:hover {
     text-decoration: underline;
 }
 
-span.sidebar-link {
-    cursor: default;
-}
-
 .sidebar-logout-btn {
     font-weight: bold;
     color: #8a2e2e;
@@ -300,6 +296,37 @@ span.sidebar-link {
 
 .btn-delete:hover {
     background-color: #6e2424;
+}
+
+/* Shelf card */
+
+.shelf-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.shelf-card {
+    height: 75px;
+    background: #f5f0e8;
+    border-radius: 10px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.shelf-name {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #8a2e2e;
+}
+
+.shelf-count {
+    font-size: 0.9rem;
+    font-family: sans-serif;
+    color: #555;
 }
 
 /* Book card */

@@ -7,6 +7,7 @@ public class Shelf {
     private Long id;
     private Long userId;
     private String name;
+    private int bookCount;
     private List<UserBook> books = new ArrayList<>();
 
     public Shelf() {
@@ -34,6 +35,14 @@ public class Shelf {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getBookCount() {
+        return bookCount;
+    }
+
+    public void setBookCount(int bookCount) {
+        this.bookCount = bookCount;
     }
 
     public List<UserBook> getBooks() {
